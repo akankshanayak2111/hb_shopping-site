@@ -80,6 +80,8 @@ def show_shopping_cart():
 
     cart_items = session["cart"]
 
+    print cart_items
+
     melons_in_cart = []
 
     order_total = 0
@@ -93,11 +95,7 @@ def show_shopping_cart():
         melons_in_cart.append(melon)
 
     return render_template("cart.html", 
-                            total=order_total,
-                            common_name=melon.common_name,
-                            quantity=melon.quantity,
-                            price=melon.price,
-                            total=melon.total,
+                            order_total=order_total,
                             melons=melons_in_cart)
 
 
@@ -125,7 +123,7 @@ def add_to_cart(melon_id):
     if session.get('cart') is None:
         session['cart'] = {}
 
-    if session['cart'].get('melon_id') is None:
+    if session['cart'].get(melon_id) is None:
         session['cart'][melon_id] = 1
     else:
         session['cart'][melon_id] += 1
